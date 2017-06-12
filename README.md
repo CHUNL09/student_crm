@@ -14,3 +14,14 @@ admin,consultant以及teacher在group表中定义
 
 目前的粒度还不够细，后续会继续细分（比如某个讲师只能更改自己所有的记录。。）
 
+## 展示
+   
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/dashboard.png)
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/login.png)  
+
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/usermgt.png)  
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/coursemgt.png)  
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/classmgt.png)
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/studymgt.png)
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/customermgt.png)  
+![image](https://github.com/CHUNL09/student_crm/blob/master/show_pics/statics.png)
