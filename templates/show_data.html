@@ -1,0 +1,458 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+<form method="get" action="/crm/add" id="submit_form2">
+    <input type="text" name="" value="" style="display: none;">
+</form>
+<form method="get" action="/crm/edit" id="submit_form3">
+    <input type="text" name="" value="" style="display: none;">
+</form>
+</div>
+
+{% if t_user_profile %}
+<h1 class="page-header">User Profile Management</h1>
+<h2 class="sub-header">User profiles
+  <a class="btn btn-info pull-right" href="/crm/add" role="button" id="add_userprofile"><span class="glyphicon glyphicon-plus">Add</span></a>
+</h2>
+<div class="msg" role="alert"></div>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>User</th>
+      <th>Name</th>
+      <th>Role</th>
+        <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in items %}
+    <tr>
+      <td id="pk" target_table="t_user_profile">{{ user.id }}</td>
+      <td>{{ user.user }}</td>
+      <td>{{ user.name }}</td>
+      <td>
+          {% for group in user.user.groups.all %}
+            <span class="{{ group.name }}">{{ group.name }}</span>
+          {% endfor %}
+      </td>
+        <td>
+            <a class="btn btn-info btn-xs edit_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-info btn-xs delete_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="pagination">
+{#    <nav>#}
+{#      <ul class="pagination">#}
+{#        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>#}
+{##}
+{#        ...#}
+{#        {% for page_num in items.paginator.page_range %}#}
+{#            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>#}
+{#        {% endfor %}#}
+{#      </ul>#}
+{#    </nav>#}
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a id="page_p_userprofile" href="javascript:void(0)">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+            <a id="page_n_userprofile" href="javascript:void(0)">next</a>
+        {% endif %}
+    </span>
+    <form method="post" action="/index/" id="submit_page_n">
+        {% if items.has_next %}
+            <input type="text" name="page" value="{{ items.next_page_number }}" style="display: none;">
+        {% else %}
+            <input type="text" name="page" value="" style="display: none;">
+        {% endif %}
+        <input type="text" name="action" value="view_userprofile" style="display: none">
+    </form>
+    <form method="post" action="/index/" id="submit_page_p">
+        {% if items.has_previous %}
+            <input type="text" name="page" value="{{ items.previous_page_number }}" style="display: none;">
+        {% else %}
+            <input type="text" name="page" value="" style="display: none;">
+        {% endif %}
+        <input type="text" name="action" value="view_userprofile" style="display: none">
+    </form>
+</div>
+</div>
+{% endif %}
+
+{% if t_course %}
+<h1 class="page-header">Course Management</h1>
+<h2 class="sub-header">Course
+  <a class="btn btn-info pull-right" href="/crm/add" role="button" id="add_course"><span class="glyphicon glyphicon-plus">Add</span></a>
+</h2>
+<div class="msg" role="alert"></div>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Online</th>
+      <th>Brief</th>
+        <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for course in items %}
+    <tr>
+      <td id="pk" target_table="t_course">{{ course.id }}</td>
+      <td>{{ course.name }}</td>
+      <td>{{ course.price }}</td>
+      <td>{{ course.online_price }}</td>
+      <td>{{ course.brief|truncatechars:20 }}</td>
+        <td>
+            <a class="btn btn-info btn-xs edit_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-info btn-xs delete_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+{% if t_classlist %}
+<h1 class="page-header">ClassList Management</h1>
+<h2 class="sub-header">ClassList
+  <a class="btn btn-info pull-right" href="/crm/add" role="button" id="add_classlist"><span class="glyphicon glyphicon-plus">Add</span></a>
+</h2>
+<div class="msg" role="alert"></div>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Course</th>
+      <th>Course_type</th>
+      <th>Semester</th>
+      <th>Start_date</th>
+      <th>Graduate_date</th>
+      <th>Teachers</th>
+        <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for classlist in items %}
+    <tr>
+      <td id="pk" target_table="t_classlist">{{ classlist.id }}</td>
+      <td>{{ classlist.course }}</td>
+      <td>{{ classlist.get_course_type_display }}</td>
+      <td>{{ classlist.semester }}</td>
+      <td>{{ classlist.start_date }}</td>
+      <td>{{ classlist.graduate_date }}</td>
+{#    {{ classlist.teachers.all }}#}
+      <td>
+            {% for teacher in classlist.teachers.all %}
+             {{ teacher.name }}<br>
+             {% endfor %}
+      </td>
+        <td>
+            <a class="btn btn-info btn-xs edit_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-info btn-xs delete_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+{% if t_customer %}
+<h1 class="page-header">Customer Management</h1>
+<h2 class="sub-header">Customer
+  <a class="btn btn-info pull-right" href="/crm/add" role="button" id="add_customer"><span class="glyphicon glyphicon-plus">Add</span></a>
+</h2>
+<div class="msg" role="alert"></div>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>QQ</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Stu_id</th>
+      <th>Source</th>
+      <th>Referral_from</th>
+      <th>Course</th>
+      <th>Class_Type</th>
+      <th>Customer_Note</th>
+      <th>Status</th>
+      <th>Consultant</th>
+      <th>Date</th>
+      <th>Class_List</th>
+        <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for customer in items %}
+    <tr>
+      <td id="pk" target_table="t_customer">{{ customer.id }}</td>
+      <td>{{ customer.qq }}</td>
+      <td>{{ customer.name }}</td>
+      <td>{{ customer.phone|truncatechars:6 }}</td>
+      <td>{{ customer.stu_id }}</td>
+      <td>{{ customer.source }}</td>
+      <td>{{ customer.referral_from }}</td>
+      <td>{{ customer.course }}</td>
+      <td>{{ customer.class_type }}</td>
+      <td>{{ customer.customer_note }}</td>
+      <td class="{{ customer.status }}">{{ customer.get_status_display }}</td>
+      <td>{{ customer.consultant }}</td>
+      <td>{{ customer.date }}</td>
+{#    {{ classlist.teachers.all }}#}
+      <td>
+{#          {{ customer.class_list.all }}#}
+            {% for c_list in customer.class_list.all %}
+             {{ c_list }}<br>
+             {% endfor %}
+      </td>
+        <td>
+            <a class="btn btn-info btn-xs edit_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-info btn-xs delete_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+{% if t_consultrecord %}
+<h1 class="page-header">ConsultRecord Management</h1>
+<h2 class="sub-header">ConsultRecord
+  <a class="btn btn-info pull-right" href="/crm/add" role="button" id="add_consultrecord"><span class="glyphicon glyphicon-plus">Add</span></a>
+</h2>
+<div class="msg" role="alert"></div>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Customer</th>
+      <th>Note</th>
+      <th>Status</th>
+      <th>Consultant</th>
+      <th>Date</th>
+        <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for record in items %}
+    <tr>
+      <td id="pk" target_table="t_consultrecord">{{ record.id }}</td>
+      <td>{{ record.customer }}</td>
+      <td>{{ record.note }}</td>
+      <td>{{ record.status }}</td>
+      <td>{{ record.consultant }}</td>
+      <td>{{ record.date }}</td>
+        <td>
+            <a class="btn btn-info btn-xs edit_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-info btn-xs delete_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+{% if t_courserecord %}
+<h1 class="page-header">CourseRecord Management</h1>
+<h2 class="sub-header">CourseRecord
+  <a class="btn btn-info pull-right" href="/crm/add" role="button" id="add_courserecord"><span class="glyphicon glyphicon-plus">Add</span></a>
+</h2>
+<div class="msg" role="alert"></div>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Course</th>
+      <th>Day_num</th>
+      <th>Date</th>
+      <th>Teacher</th>
+        <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for record in items %}
+    <tr>
+      <td id="pk" target_table="t_courserecord">{{ record.id }}</td>
+      <td>{{ record.course }}</td>
+      <td>{{ record.day_num }}</td>
+      <td>{{ record.date }}</td>
+      <td>{{ record.teacher }}</td>
+        <td>
+            <a class="btn btn-info btn-xs edit_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-info btn-xs delete_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+{% if t_studyrecord %}
+<h1 class="page-header">StudyRecord Management</h1>
+<h2 class="sub-header">StudyRecord
+  <a class="btn btn-info pull-right" href="/crm/add" role="button" id="add_studyrecord"><span class="glyphicon glyphicon-plus">Add</span></a>
+</h2>
+<div class="msg" role="alert"></div>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Course_Record</th>
+      <th>Student</th>
+      <th>Record</th>
+      <th>Score</th>
+      <th>Date</th>
+      <th>Note</th>
+        <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for record in items %}
+    <tr>
+      <td id="pk" target_table="t_studyrecord">{{ record.id }}</td>
+      <td>{{ record.course_record }}</td>
+      <td>{{ record.student }}</td>
+      <td>{{ record.record }}</td>
+      <td>{{ record.score }}</td>
+      <td>{{ record.date }}</td>
+      <td>{{ record.note }}</td>
+        <td>
+            <a class="btn btn-info btn-xs edit_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-info btn-xs delete_record" href="javascript:void(0)" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+{% block actions %}
+    $("#add_userprofile").click(function(){
+					$("#submit_form2").empty();
+					var sub_msg='<input type="text" name="action" value="add_userprofile" style="display: none;">';
+					$("#submit_form2").html(sub_msg);
+					$("#submit_form2").submit();
+					return false;
+				});
+    $("#add_course").click(function(){
+        console.log("hello--course")
+        $("#submit_form2").empty();
+        var sub_msg='<input type="text" name="action" value="add_course" style="display: none;">';
+        $("#submit_form2").html(sub_msg);
+        $("#submit_form2").submit();
+        return false;
+    });
+    $("#add_classlist").click(function(){
+        $("#submit_form2").empty();
+        var sub_msg='<input type="text" name="action" value="add_classlist" style="display: none;">';
+        $("#submit_form2").html(sub_msg);
+        $("#submit_form2").submit();
+        return false;
+    });
+    $("#add_customer").click(function(){
+        $("#submit_form2").empty();
+        var sub_msg='<input type="text" name="action" value="add_customer" style="display: none;">';
+        $("#submit_form2").html(sub_msg);
+        $("#submit_form2").submit();
+        return false;
+    });
+
+    $("#add_consultrecord").click(function(){
+        $("#submit_form2").empty();
+        var sub_msg='<input type="text" name="action" value="add_consultrecord" style="display: none;">';
+        $("#submit_form2").html(sub_msg);
+        $("#submit_form2").submit();
+        return false;
+    });
+
+    $("#add_courserecord").click(function(){
+        $("#submit_form2").empty();
+        var sub_msg='<input type="text" name="action" value="add_courserecord" style="display: none;">';
+        $("#submit_form2").html(sub_msg);
+        $("#submit_form2").submit();
+        return false;
+    });
+
+    $("#add_studyrecord").click(function(){
+        $("#submit_form2").empty();
+        var sub_msg='<input type="text" name="action" value="add_studyrecord" style="display: none;">';
+        $("#submit_form2").html(sub_msg);
+        $("#submit_form2").submit();
+        return false;
+    });
+
+    $("#page_n_userprofile").click(function(){
+        $("#submit_page_n").submit();
+        return false;
+    });
+    $("#page_p_userprofile").click(function(){
+        $("#submit_page_p").submit();
+        return false;
+    });
+    $(".delete_record").click(function(){
+        event.preventDefault();
+        var $pk_val=$(this).parent().siblings("#pk").text();
+        var $table_val=$(this).parent().siblings("#pk").attr('target_table');
+        $.ajax({
+                url:'/crm/del/',
+                type:'POST',
+                data:{'pk_val':$pk_val,'table_val':$table_val,'action':'del'},
+				async:false,
+                success:function(arg){
+                    var data=JSON.parse(arg);
+                    console.log(data);
+                    console.log(data['res']);
+                    $(".msg").empty();
+					if(data['res']=='success'){
+						$(".msg").addClass("alert alert-success").text(data['msg']);
+					}else{
+						$(".msg").addClass("alert alert-danger").text(data['msg']);
+					}
+                    
+                }
+        });
+
+    });
+
+    $(".edit_record").click(function(){
+        console.log("hello");
+        $("#submit_form3").empty();
+        var $pk_val=$(this).parent().siblings("#pk").text();
+        var $table_val=$(this).parent().siblings("#pk").attr('target_table');
+        var sub_msg='<input type="text" name="tablename" value="'+$table_val+'" style="display: none;">'+
+                    '<input type="text" name="pkvalue" value="'+$pk_val+'" style="display: none;">';
+        $("#submit_form3").html(sub_msg);
+        $("#submit_form3").submit();
+        return false;
+    });
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page-header">Statics</h1>
+<h2 class="sub-header">
+  <form class="form-inline" id="q_class_form" method="post" action="/crm/statics">
+      <div class="form-group">
+        <label for="iclass">Course</label>
+        <select class="form-control" name="iclass">
+          {% for course in course_list %}
+          <option value="{{ course.id }}">{{ course.course }}_day{{ course.day_num }}</option>
+          {% endfor %}
+        </select>
+{#        <input type="text" name="courser_key_id" value="{{  }}" />#}
+      </div>
+      <button id="gosearch" class="btn btn-primary">Go!</button>
+    </form>
+</h2>
+<div class="msg" role="alert"></div>
+{% if display %}
+<div class="table-responsive">
+<table class="table table-striped">
+  <caption>hello</caption>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Student</th>
+      <th>Record</th>
+      <th>Score</th>
+      <th>Date</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for record in items %}
+    <tr>
+      <td id="pk" target_table="t_studyrecord">{{ record.id }}</td>
+      <td>{{ record.student }}</td>
+      <td>{{ record.record }}</td>
+      <td>{{ record.score }}</td>
+      <td>{{ record.date }}</td>
+      <td>{{ record.note }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}
+
+{% block actions %}
+    $("#gosearch").click(function(){
+            $("#q_class_form").submit();
+				});
+{% endblock %}

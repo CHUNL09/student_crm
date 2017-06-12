@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>admin</title>
+		<link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/statics/css/admin_custom.css" />
+	</head>
+	<body>
+	    <nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container-fluid">
+	        <div class="navbar-header">
+	          <a class="navbar-brand" href="#">Admin Portal</a>
+	        </div>
+	        <div id="navbar" class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	            <li><a href="#">Dashboard</a></li>
+	            <li><a href="#">Settings</a></li>
+	            <li class="dropdown">
+                    {% if request.user.is_authenticated %}
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }}<span class="caret"></span></a>
+                    {% endif %}
+                    <ul class="dropdown-menu">
+		          	<li><a href="#">Profile</a></li>
+		            <li><a href="/logout">Logout</a></li>
+		          </ul>
+		        </li>
+	            <li><a href="#">Help</a></li>
+	          </ul>
+	          <form class="navbar-form navbar-right">
+	            <input type="text" class="form-control" placeholder="Search...">
+	          </form>
+	        </div>
+	      </div>
+	    </nav>
+	
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+	          <ul class="nav nav-sidebar">
+	            <li><a href="/index" id="user_profile">User Profile <span class="sr-only">(current)</span></a></li>
+	            <li><a href="#">Reports</a></li>
+	            <li><a href="#">Analytics</a></li>
+	            <li><a href="#">Export</a></li>
+	          </ul>
+	          <ul class="nav nav-sidebar">
+	            <li><a href="">Nav item</a></li>
+	            <li><a href="">Nav item again</a></li>
+	            <li><a href="">One more nav</a></li>
+	            <li><a href="">Another nav item</a></li>
+	            <li><a href="">More navigation</a></li>
+	          </ul>
+	          <ul class="nav nav-sidebar">
+	            <li><a href="">Nav item again</a></li>
+	            <li><a href="">One more nav</a></li>
+	            <li><a href="">Another nav item</a></li>
+	          </ul>
+	        </div>
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                {% block content %}
+	          <h1 class="page-header">User Profile Management</h1>
+	          <h2 class="sub-header">Section title
+{#                <button type="button" class="btn btn-info pull-right">#}
+{#                    <span class="glyphicon glyphicon-plus">Add</span>#}
+{#                </button>#}
+              <a class="btn btn-info pull-right" href="/crm/add" role="button"><span class="glyphicon glyphicon-plus">Add</span></a>
+              </h2>
+
+	          <div class="table-responsive">
+	            <table class="table table-striped">
+	              <thead>
+	                <tr>
+	                  <th>#</th>
+	                  <th>User</th>
+	                  <th>Name</th>
+                        <th>Action</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+                  {% for user in users %}
+	                <tr>
+	                  <td>{{ user.id }}</td>
+	                  <td>{{ user.user }}</td>
+	                  <td>{{ user.name }}</td>
+                        <td>
+                            <a class="btn btn-info btn-xs" href="#" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a class="btn btn-info btn-xs" href="#" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+	                </tr>
+                  {% endfor %}
+	              </tbody>
+	            </table>
+	          </div>
+                {% endblock %}
+              <div>
+              	<form method="post" action="/index/" id="submit_form">
+              		<input type="text" name="" value="" style="display: none;">
+              	</form>
+              </div>  
+	        </div>
+	      </div>
+	    </div>
+	
+	    <!-- Bootstrap core JavaScript
+	    ================================================== -->
+	    <script type="text/javascript" src="/statics/js/jquery-2.2.3.min.js" ></script>
+	    <script type="text/javascript" src="/statics/js/bootstrap.min.js" ></script>
+		<script>
+			$(function(){
+				$("#user_profile").click(function(){
+					$("#submit_form").empty()
+					var sub_msg='<input type="text" name="action" value="add_userprofile" style="display: none;">';
+					$("#submit_form").html(sub_msg)
+					$("#submit_form").submit()
+					console.log("finish_here")
+					return false;
+				})
+			})
+			{% block actions %}
+
+			{% endblock %}
+		</script>
+  	</body>
+</html>

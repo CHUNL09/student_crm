@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>admin</title>
+		<link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/statics/css/admin_custom.css" />
+	</head>
+	<body>
+	    <nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container-fluid">
+	        <div class="navbar-header">
+	          <a class="navbar-brand" href="#">Admin Portal</a>
+	        </div>
+	        <div id="navbar" class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	            <li><a href="#">Dashboard</a></li>
+	            <li><a href="#">Settings</a></li>
+	            <li class="dropdown">
+                    {% if request.user.is_authenticated %}
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }}<span class="caret"></span></a>
+                    {% endif %}
+                    <ul class="dropdown-menu">
+		          	<li><a href="#">Profile</a></li>
+		            <li><a href="/logout">Logout</a></li>
+		          </ul>
+		        </li>
+	            <li><a href="#">Help</a></li>
+	          </ul>
+	          <form class="navbar-form navbar-right">
+	            <input type="text" class="form-control" placeholder="Search...">
+	          </form>
+	        </div>
+	      </div>
+	    </nav>
+	
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+	          <ul class="nav nav-sidebar">
+                {% ifequal group 'admin' %}
+	            <li><a href="/index" id="user_profile">User Profile</a></li>
+	            <li><a href="/index" id="course">Course</a></li>
+	            <li><a href="/index" id="classlist">ClassList</a></li>
+	            <li><a href="/index" id="customer">Customer</a></li>
+                <li><a href="/index" id="consultrecord">ConsultRecord</a></li>
+                <li><a href="/index" id="courserecord">CourseRecord</a></li>
+                <li><a href="/index" id="studyrecord">StudyRecord</a></li>
+                <li><a href="/crm/statics" id="statics">Statics</a></li>
+                {% endifequal %}
+                {% ifequal group 'teacher' %}
+	            <li><a href="/index" id="classlist">ClassList</a></li>
+                <li><a href="/index" id="courserecord">CourseRecord</a></li>
+                <li><a href="/index" id="studyrecord">StudyRecord</a></li>
+                <li><a href="/crm/statics" id="statics">Statics</a></li>
+                {% endifequal %}
+                {% ifequal group 'consultant' %}
+	            <li><a href="/index" id="customer">Customer</a></li>
+                <li><a href="/index" id="consultrecord">ConsultRecord</a></li>
+                {% endifequal %}
+	          </ul>
+	        </div>
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                {% block content %}
+                {% endblock %}
+              <div>
+              	<form method="post" action="/index/" id="submit_form">
+              		<input type="text" name="" value="" style="display: none;">
+              	</form>
+              </div>  
+	        </div>
+	      </div>
+	    </div>
+	
+	    <!-- Bootstrap core JavaScript
+	    ================================================== -->
+	    <script type="text/javascript" src="/statics/js/jquery-2.2.3.min.js" ></script>
+	    <script type="text/javascript" src="/statics/js/bootstrap.min.js" ></script>
+		<script>
+			$(function(){
+				$("#user_profile").click(function(){
+					$("#submit_form").empty();
+					var sub_msg='<input type="text" name="action" value="view_userprofile" style="display: none;">';
+					$("#submit_form").html(sub_msg);
+					$("#submit_form").submit();
+					return false;
+				});
+
+                $("#course").click(function(){
+					$("#submit_form").empty();
+					var sub_msg='<input type="text" name="action" value="view_course" style="display: none;">';
+					$("#submit_form").html(sub_msg);
+					$("#submit_form").submit();
+					return false;
+				});
+
+                $("#classlist").click(function(){
+					$("#submit_form").empty();
+					var sub_msg='<input type="text" name="action" value="view_classlist" style="display: none;">';
+					$("#submit_form").html(sub_msg);
+					$("#submit_form").submit();
+					return false;
+				});
+
+                $("#customer").click(function(){
+					$("#submit_form").empty();
+					var sub_msg='<input type="text" name="action" value="view_customer" style="display: none;">';
+					$("#submit_form").html(sub_msg);
+					$("#submit_form").submit();
+					return false;
+				});
+
+                $("#consultrecord").click(function(){
+					$("#submit_form").empty();
+					var sub_msg='<input type="text" name="action" value="view_consultrecord" style="display: none;">';
+					$("#submit_form").html(sub_msg);
+					$("#submit_form").submit();
+					return false;
+				});
+
+                $("#courserecord").click(function(){
+					$("#submit_form").empty();
+					var sub_msg='<input type="text" name="action" value="view_courserecord" style="display: none;">';
+					$("#submit_form").html(sub_msg);
+					$("#submit_form").submit();
+					return false;
+				});
+
+                $("#studyrecord").click(function(){
+					$("#submit_form").empty();
+					var sub_msg='<input type="text" name="action" value="view_studyrecord" style="display: none;">';
+					$("#submit_form").html(sub_msg);
+					$("#submit_form").submit();
+					return false;
+				});
+                {% block actions %}
+
+			    {% endblock %}
+			});
+
+		</script>
+  	</body>
+</html>

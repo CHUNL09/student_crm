@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if t_user_profile %}
+<h1 class="page-header">Add a new profile</h1>
+<form class="form-horizontal" method="post" action="/crm/add">
+  <input type="text" style="display:none;" name="add_action" value="add_userprofile">
+  <div class="form-group">
+    <label for="id_user" class="col-sm-1 control-label">{{ addprofiles.user.label }}</label>
+    <div class="col-sm-3">
+      {{ addprofiles.user }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_name" class="col-sm-1 control-label">{{ addprofiles.name.label }}</label>
+    <div class="col-sm-3">
+      {{ addprofiles.name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-primary" id="s_profile">Save Changes</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if t_course %}
+<h1 class="page-header">Add a new course</h1>
+<form class="form-horizontal" method="post" action="/crm/add">
+  <input type="text" style="display:none;" name="add_action" value="add_course">
+  <div class="form-group">
+    <label for="id_name" class="col-sm-1 control-label">{{ addcourses.name.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourses.name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_price" class="col-sm-1 control-label">{{ addcourses.price.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourses.price }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_online_price" class="col-sm-1 control-label">{{ addcourses.online_price.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourses.online_price }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_brief" class="col-sm-1 control-label">{{ addcourses.brief.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourses.brief }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-primary" id="s_course">Save Changes</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if t_classlist %}
+<h1 class="page-header">Add a new classlist</h1>
+<form class="form-horizontal" method="post" action="/crm/add">
+  <input type="text" style="display:none;" name="add_action" value="add_classlist">
+  <div class="form-group">
+    <label for="id_course" class="col-sm-1 control-label">{{ addclasslist.course.label }}</label>
+    <div class="col-sm-3">
+      {{ addclasslist.course }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_course_type" class="col-sm-1 control-label">{{ addclasslist.course_type.label }}</label>
+    <div class="col-sm-3">
+      {{ addclasslist.course_type }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_semester" class="col-sm-1 control-label">{{ addclasslist.semester.label }}</label>
+    <div class="col-sm-3">
+      {{ addclasslist.semester }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_start_date" class="col-sm-1 control-label">{{ addclasslist.start_date.label }}</label>
+    <div class="col-sm-3">
+      {{ addclasslist.start_date }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_graduate_date" class="col-sm-1 control-label">{{ addclasslist.graduate_date.label }}</label>
+    <div class="col-sm-3">
+      {{ addclasslist.graduate_date }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_teachers" class="col-sm-1 control-label">{{ addclasslist.teachers.label }}</label>
+    <div class="col-sm-3">
+      {{ addclasslist.teachers }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-primary" id="s_course">Save Changes</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if t_customer %}
+<h1 class="page-header">Add a new customer</h1>
+<form class="form-horizontal" method="post" action="/crm/add">
+  <input type="text" style="display:none;" name="add_action" value="add_customer">
+  <div class="form-group">
+    <label for="id_qq" class="col-sm-1 control-label">{{ addcustomer.qq.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.qq }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_name" class="col-sm-1 control-label">{{ addcustomer.name.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_phone" class="col-sm-1 control-label">{{ addcustomer.phone.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.phone }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_stu_id" class="col-sm-1 control-label">{{ addcustomer.stu_id.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.stu_id }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_source" class="col-sm-1 control-label">{{ addcustomer.source.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.source }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_referral_from" class="col-sm-1 control-label">{{ addcustomer.referral_from.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.referral_from }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_course" class="col-sm-1 control-label">{{ addcustomer.course.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.course }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_class_type" class="col-sm-1 control-label">{{ addcustomer.class_type.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.class_type }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_customer_note" class="col-sm-1 control-label">{{ addcustomer.customer_note.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.customer_note }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_status" class="col-sm-1 control-label">{{ addcustomer.status.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.status }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_consultant" class="col-sm-1 control-label">{{ addcustomer.consultant.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.consultant }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_date" class="col-sm-1 control-label">{{ addcustomer.date.label }}</label>
+    <div class="col-sm-3">
+      {{ addcustomer.date }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_class_list" class="col-sm-1 control-label">{{ addcustomer.class_list.label }}</label>
+    <div class="col-sm-3">
+{#        {% for c_list in addcustomer.class_list %}#}
+{#         {{ c_list.name }}<br>#}
+{#         {% endfor %}#}
+      {{ addcustomer.class_list }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-primary" id="s_course">Save Changes</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if t_consultrecord %}
+<h1 class="page-header">Add a new ConsultRecord</h1>
+<form class="form-horizontal" method="post" action="/crm/add">
+  <input type="text" style="display:none;" name="add_action" value="add_consultrecord">
+  <div class="form-group">
+    <label for="id_customer" class="col-sm-1 control-label">{{ addconsultrecord.customer.label }}</label>
+    <div class="col-sm-3">
+      {{ addconsultrecord.customer }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_note" class="col-sm-1 control-label">{{ addconsultrecord.note.label }}</label>
+    <div class="col-sm-3">
+      {{ addconsultrecord.note }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_status" class="col-sm-1 control-label">{{ addconsultrecord.status.label }}</label>
+    <div class="col-sm-3">
+      {{ addconsultrecord.status }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_consultant" class="col-sm-1 control-label">{{ addconsultrecord.consultant.label }}</label>
+    <div class="col-sm-3">
+      {{ addconsultrecord.consultant }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_date" class="col-sm-1 control-label">{{ addconsultrecord.date.label }}</label>
+    <div class="col-sm-3">
+      {{ addconsultrecord.date }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-primary" id="s_course">Save Changes</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+
+{% if t_courserecord %}
+<h1 class="page-header">Add a new CourseRecord</h1>
+<form class="form-horizontal" method="post" action="/crm/add">
+  <input type="text" style="display:none;" name="add_action" value="add_courserecord">
+  <div class="form-group">
+    <label for="id_course" class="col-sm-1 control-label">{{ addcourserecord.course.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourserecord.course }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_day_num" class="col-sm-1 control-label">{{ addcourserecord.day_num.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourserecord.day_num }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_date" class="col-sm-1 control-label">{{ addcourserecord.date.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourserecord.date }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_teacher" class="col-sm-1 control-label">{{ addcourserecord.teacher.label }}</label>
+    <div class="col-sm-3">
+      {{ addcourserecord.teacher }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-primary" id="s_course">Save Changes</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if t_studyrecord %}
+<h1 class="page-header">Add a new StudyRecord</h1>
+<form class="form-horizontal" method="post" action="/crm/add">
+  <input type="text" style="display:none;" name="add_action" value="add_studyrecord">
+  <div class="form-group">
+    <label for="id_course_record" class="col-sm-1 control-label">{{ addstudyrecord.course_record.label }}</label>
+    <div class="col-sm-3">
+      {{ addstudyrecord.course_record }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_student" class="col-sm-1 control-label">{{ addstudyrecord.student.label }}</label>
+    <div class="col-sm-3">
+      {{ addstudyrecord.student }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_record" class="col-sm-1 control-label">{{ addstudyrecord.record.label }}</label>
+    <div class="col-sm-3">
+      {{ addstudyrecord.record }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_score" class="col-sm-1 control-label">{{ addstudyrecord.score.label }}</label>
+    <div class="col-sm-3">
+      {{ addstudyrecord.score }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_date" class="col-sm-1 control-label">{{ addstudyrecord.date.label }}</label>
+    <div class="col-sm-3">
+      {{ addstudyrecord.date }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_note" class="col-sm-1 control-label">{{ addstudyrecord.note.label }}</label>
+    <div class="col-sm-3">
+      {{ addstudyrecord.note }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-primary" id="s_course">Save Changes</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+
+{% endblock %}
+
+{% block actions %}
+
+{% endblock %}
